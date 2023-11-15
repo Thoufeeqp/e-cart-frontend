@@ -1,0 +1,67 @@
+<div *ngIf="cartitems.length==0" class="container mt-5">
+    <div class="row">
+        <div class="col text-center mt-5">
+            <div *ngIf="paymentsuccess">
+                <h3 class="text-success">Payment Completed Successfully</h3>
+            </div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0igpltCJG1XMenq_dnejxa58Dqhzt75GaSw&usqp=CAU" alt="">
+            <h3 class="text-danger mt-3">Your Cart is Empty!!!</h3>
+            <a routerLink="" class="btn btn-success" >Add More</a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container mt-5">
+    <div class="row mt-5">
+       
+        <div *ngIf="!paymentsuccess"  class=" col-7 border p-3 rounded me-1 mt-3">
+            <table  class="table ">
+                <thead>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </thead>
+                <tbody *ngFor="let item of cartitems index as i">
+                    <tr>
+                        <th>{{i+1}}</th>
+                        <th>{{item.title.slice(0,20)}}</th>
+                        <th class="align-items-center">
+                            <img width="70px" height="70px" [src]="item.image" alt="">
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center">
+                                <button (click)="decrement(item.id)" class="btn fw-bolder">-</button>
+                                <input class="form-control text-center " id="input" type="number" [value]="item.quantity" style="max-width: 4rem;" readonly>
+                                <button (click)="increment(item.id)" class="btn fw-bolder">+</button>
+                            </div>
+                        </th>
+                        <th>{{item.total}}</th>
+                        <th>
+                            <i (click)="deleteitem(item.id)" class="fa-solid fa-trash text-danger "></i>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+                <button (click)="empty()"  class="btn btn-danger m-1"><i class="fa-solid fa-trash fa-shake me-1"></i>Empty Cart</button>
+                <a routerLink="" class="btn btn-success m-1"><i class="fa-solid fa-cart-plus fa-shake me-1"></i>Shop More</a>
+            </div>
+        </div>
+        <div *ngIf="!paymentsuccess" class="col-4 ms-auto mt-3 m-3">
+            <div class="border p-3 rounded">
+                <h5 >Sub Total: <span class="fw-bolder fs-2 text-danger">{{subtotal}}</span></h5>
+                <hr>
+                <div class="d-grid gap-2">
+                    <a routerLink="/products/payment" class="btn btn-primary">Proceed to Buy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="row m-5"></div>
+    <div class="row m-5">
+        <div class="col-3"></div>
+        <div *ngIf="!checkoutclicked" class="col-6 ">
+            <h3 class="text-primary">CheckOut details</h3>
+            <div>
+                <h5 class="text-success"> Enter Your Delivery Address</h5>
+                <form [formGroup]=" addressform">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">User name</label>
+                      <input required name="username" formControlName="username" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username  please">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Appartment</label>
+                      <input required  name="flatno" formControlName="flatno"  type="password" class="form-control" id="exampleInputPassword1" placeholder="Apartment">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">State</label>
+                        <input required  name="State" formControlName="state"  type="password" class="form-control" id="exampleInputPassword1" placeholder="State">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Pincode</label>
+                        <input  required name="pin" formControlName="pin"  type="password" class="form-control" id="exampleInputPassword1" placeholder="pincode">
+                      </div>
+                      <button (click)="checkout()" style="justify-content: center;" type="submit" class="btn btn-success m-1">Check out</button>
+                    
+                  </form>
+            </div>
+            
+          </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <div *ngIf="checkoutclicked" >
+            <h5 class="text-primary">Payment Details</h5>
+            <h3 class="text-success">Delivery Address</h3>
+            <p>{{username}}</p>
+            <p>{{flatno}}</p>
+            <p>pin:{{pin}}</p>
+            <p>{{state}}</p>
+            <div class=" d-flex justify-content-between">
+                <h4>Total Amount: <span class="fw-bolder text-danger">${{total}}</span></h4>
+                 <button class="btn " (click)="offer()" ><i class="fa-solid fa-tag"></i>Offers</button>
+           
+                </div>
+                <ng-container *ngIf="!coupenclicked">
+            <div *ngIf="offerclicked" class="offers">
+                <img (click)="discount10()" *ngIf="total<100 && total>10" width="100px" height="70px" src="https://i.pinimg.com/736x/d9/c0/9b/d9c09b6b9a249f5143d8a90df140cfa7.jpg" alt="">
+                <img (click)="discount50()" *ngIf=" total>101" width="100px" height="70px" src="data:image/jpeg;base64,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" alt="">
+            </div>
+        </ng-container>
+        <div *ngIf="showSuccess" class="success">
+            <h3 class="text-center text-danger fw-bolder">Payment completed successfully <i class="fa-solid fa-check fa-beat-fade"></i> </h3>
+        <a class="btn btn-warning" routeLink="cart">Go to Cart</a>
+        </div>
+        <div *ngIf="showCancel" class="success">
+            <h3 class="text-center text-danger fw-bolder">Payment cancelled <i class="fa-solid fa-x fa-beat-fade"></i> </h3>
+        </div>
+        <div *ngIf="showError" class="success">
+            <h3 class="text-center text-danger fw-bolder">Transaction failed <i class="fa-solid fa-x fa-beat-fade"></i></h3>
+        </div>
+
+            <button *ngIf="!makepaymentclicked" (click)="makepayment()" class="btn btn-primary m-1">Make Payment</button>
+            <div *ngIf="makepaymentclicked">
+                <ngx-paypal  [config]="payPalConfig"></ngx-paypal>
+            </div>
+        </div>
+    </div>
+    <div class="col-4"></div>
+</div>

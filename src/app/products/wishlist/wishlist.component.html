@@ -1,0 +1,46 @@
+<div *ngIf="wishlist.length==0" class="container mt-5">
+    <div class="row">
+        <div class="col text-center mt-5">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0igpltCJG1XMenq_dnejxa58Dqhzt75GaSw&usqp=CAU" alt="">
+            <h3 class="text-danger mt-3">Your Wishlist is Empty!!!</h3>
+            <a routerLink="" class="btn btn-success" >Add More</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div *ngFor="let item of wishlist" class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img  height="250px" class="card-img-top" [src]="item.image" alt="..." />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{item.title.slice(0,20)}}</h5>
+                            <!-- Product price-->
+                            ${{item.price}}
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div  class="d-flex justify-content-between">
+                            <button (click)="removewish(item.id)"  class="btn btn-warning m-2  mt-auto"><i class="fa-solid text-light fa-heart-circle-minus "></i></button>
+                        <button (click)="addtocart(item)"  class="btn btn-success m-2 ">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
